@@ -412,7 +412,7 @@ body {
 
 .workflow {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.9rem;
 }
 
@@ -425,12 +425,32 @@ body {
   box-shadow: var(--shadow);
 }
 
+.workflow-step.is-wide {
+  grid-column: 1 / -1;
+}
+
+.workflow-step.is-roadmap {
+  border-style: dashed;
+  background: linear-gradient(
+    170deg,
+    color-mix(in srgb, var(--mint) 7%, #fff 93%),
+    color-mix(in srgb, var(--primary) 6%, #fff 94%)
+  );
+}
+
 .step-index {
   margin: 0;
   font-family: "Space Grotesk", sans-serif;
   color: var(--accent);
   letter-spacing: 0.12em;
   font-size: 0.76rem;
+}
+
+.step-note {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
 }
 
 .workflow-step h3 {
