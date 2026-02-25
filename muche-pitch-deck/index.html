@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muche Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* --- DESIGN SYSTEM (App UI Style) --- */
+:root {
+    /* Backgrounds */
+    --bg-base: #F7F8FA;
+    --bg-gradient: linear-gradient(135deg, #FFF9F2 0%, #FFF0E6 100%);
+    
+    /* Colors */
+    --primary: #FF9F43;
+    --primary-light: #FFE0B2;
+    --secondary: #6AB04C;
+    --text-main: #2D3436;
+    --text-sub: #636E72;
+    
+    /* Cards & UI */
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.8);
+    --soft-shadow: 0 12px 30px -10px rgba(255, 159, 67, 0.15), 0 4px 10px -5px rgba(0,0,0,0.05);
+    --deep-shadow: 0 20px 50px -12px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background-color: #eee;
+    margin: 0;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Nunito', 'Noto Sans SC', sans-serif;
+}
+
+.slide-container {
+    width: 1280px;
+    height: 720px;
+    background: var(--bg-gradient);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    color: var(--text-main);
+}
+
+/* Typography */
+h1 { font-size: 64px; font-weight: 800; margin: 0; letter-spacing: -1px; color: var(--text-main); }
+h2 { font-size: 48px; font-weight: 700; margin: 0 0 40px 0; letter-spacing: -0.5px; }
+h3 { font-size: 28px; font-weight: 700; margin: 0 0 10px 0; }
+p { font-size: 20px; line-height: 1.6; color: var(--text-sub); margin: 0; }
+.subtitle { font-size: 24px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+
+/* Components */
+.card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--soft-shadow);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+.icon-circle {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.icon-orange { background: #FFF3E0; color: var(--primary); }
+.icon-green { background: #E8F5E9; color: var(--secondary); }
+.icon-grey { background: #F1F2F6; color: var(--text-sub); }
+
+/* Layouts */
+.center-layout { text-align: center; justify-content: center; align-items: center; height: 100%; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; height: 100%; align-items: center; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+/* Decorative */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    z-index: 0;
+}
+.blob-orange { width: 400px; height: 400px; background: var(--primary-light); top: -100px; right: -100px; }
+.blob-green { width: 300px; height: 300px; background: #E8F5E9; bottom: -50px; left: -50px; }
+
+/* Specific Elements */
+.highlight-pill {
+    display: inline-block;
+    padding: 8px 20px;
+    background: #FFE0B2;
+    color: #E67E22;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* App UI Replica (The Bento UI) */
+.phone-mockup {
+    width: 340px;
+    height: 680px;
+    background: #FAF9F6; /* Warm Sand */
+    border-radius: 40px;
+    border: 12px solid #fff;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+.app-header { display: flex; justify-content: flex-end; gap: 15px; margin-bottom: 10px; color: #FF9F43; z-index: 10; }
+.app-sun-glow {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #FFD89C, #FFB07C);
+    box-shadow: 0 0 60px rgba(255, 180, 100, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.app-bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 250px; /* Push below sun */
+    z-index: 10;
+}
+.app-bento-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+.app-bottom-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 40px;
+    display: flex;
+    padding: 5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.app-nav-item {
+    width: 60px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+.app-nav-item.active { background: #333; color: white; }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Cover -->
+<div class="slide-container center-layout">
+    <div class="blob blob-orange"></div>
+    <div class="blob blob-green"></div>
+    <div style="z-index: 1;">
+        <div style="width: 100px; height: 100px; background: var(--primary); border-radius: 30px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(255,159,67,0.4);">
+            <i class="fa-solid fa-sun" style="font-size: 48px; color: white;"></i>
+        </div>
+        <h1>目澈 (Muche)</h1>
+        <div style="height: 4px; width: 60px; background: var(--text-main); margin: 30px auto;"></div>
+        <h2 style="font-size: 36px; margin-bottom: 10px;">从“医疗级低频消费”</h2>
+        <h2 style="font-size: 36px; color: var(--primary);">到“日常消费电子”</h2>
+        <p style="margin-top: 20px;">青少年光能护眼终端</p>
+    </div>
+</div>
+
+<!-- Slide 2: Problem -->
+<div class="slide-container">
+    <span class="subtitle">现实痛点</span>
+    <h2>“隐形”的 10 小时</h2>
+    <div class="grid-2">
+        <div>
+            <div style="font-size: 80px; font-weight: 800; line-height: 1; margin-bottom: 10px;">1.8<span style="font-size: 40px;">亿</span></div>
+            <p style="margin-bottom: 40px;">中国 K12 学生基数</p>
+            <div class="card" style="border-left: 5px solid #FF5252;">
+                <h3>家长无力监管</h3>
+                <p>孩子在校 <strong>8-10 小时</strong><br>坐姿？户外？用眼过度？<br>家长完全“不可知、不可控”。</p>
+            </div>
+        </div>
+        <div style="position: relative; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 300px; height: 300px; border-radius: 50%; border: 20px solid #eee; position: relative; display: flex; align-items: center; justify-content: center;">
+                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 20px solid var(--text-main); border-bottom-color: transparent; border-left-color: transparent; transform: rotate(-45deg);"></div>
+                <div style="text-align: center;">
+                    <i class="fa-solid fa-eye-slash" style="font-size: 48px; color: var(--text-sub); margin-bottom: 10px;"></i>
+                    <div style="font-weight: 700;">监管盲区</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Opportunity -->
+<div class="slide-container">
+    <span class="subtitle">市场空白</span>
+    <h2>巨大的中间地带</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; height: 400px;">
+        <div class="card" style="width: 30%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: 0.7;">
+            <div class="icon-circle icon-grey"><i class="fa-solid fa-user-doctor"></i></div>
+            <h3>医疗器械</h3>
+            <p style="font-size: 16px;">OK镜 / 离焦镜</p>
+            <div style="margin-top: 20px; font-size: 14px; background: #eee; padding: 5px 15px; border-radius: 20px;">价格高 · 门槛高</div>
+        </div>
+        <div class="card" style="width: 35%; height: 110%; border: 2px solid var(--primary); box-shadow: 0 20px 60px rgba(255,159,67,0.2); z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <div class="icon-circle icon-orange" style="width: 90px; height: 90px; font-size: 40px;"><i class="fa-solid fa-glasses"></i></div>
+            <h3 style="font-size: 32px; color: var(--primary);">Muche 目澈</h3>
+            <p><strong>天然的硬件入口</strong></p>
+            <p style="font-size: 16px; margin-top: 10px;">日常佩戴 · 行为干预</p>
+        </div>
+        <div class="card" style="width: 30%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: 0.7;">
+            <div class="icon-circle icon-grey"><i class="fa-regular fa-bell"></i></div>
+            <h3>辅助设备</h3>
+            <p style="font-size: 16px;">护眼仪 / 提醒器</p>
+            <div style="margin-top: 20px; font-size: 14px; background: #eee; padding: 5px 15px; border-radius: 20px;">依从性差 · 易闲置</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Hardware -->
+<div class="slide-container">
+    <div class="grid-2">
+        <div>
+            <span class="subtitle">核心产品</span>
+            <h2>目澈·逐日 (Helios)</h2>
+            <p style="font-size: 24px; color: var(--text-main); font-weight: 700; margin-bottom: 20px;">“光能自循环”智能护眼镜架</p>
+            <p>不仅仅是一副更智能的眼镜，<br>而是一个全新的<strong>护眼日常入口</strong>。</p>
+            <div style="margin-top: 40px;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fa-solid fa-check" style="color: var(--primary); margin-right: 15px;"></i>
+                    <span>18g 极致轻量</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fa-solid fa-check" style="color: var(--primary); margin-right: 15px;"></i>
+                    <span>适配所有近视/散光片</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-check" style="color: var(--primary); margin-right: 15px;"></i>
+                    <span>无感佩戴设计</span>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div style="position: relative; width: 400px; height: 150px;">
+                 <div style="position: absolute; width: 160px; height: 120px; border: 8px solid #333; border-radius: 30px 30px 50px 50px; left: 0;"></div>
+                 <div style="position: absolute; width: 160px; height: 120px; border: 8px solid #333; border-radius: 30px 30px 50px 50px; right: 0;"></div>
+                 <div style="position: absolute; width: 60px; height: 8px; background: #333; left: 170px; top: 30px;"></div>
+                 <div style="position: absolute; width: 100px; height: 6px; background: linear-gradient(90deg, #333, var(--primary)); right: -60px; top: 10px; transform: rotate(-10deg); border-radius: 4px;"></div>
+                 <div style="position: absolute; right: -90px; top: -10px; background: var(--primary); color: white; padding: 4px 10px; border-radius: 10px; font-size: 12px;">Solar Power</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Core Philosophy -->
+<div class="slide-container">
+    <span class="subtitle">核心体验</span>
+    <h2>三大设计原则</h2>
+    <div class="grid-3" style="margin-top: 20px;">
+        <div class="card">
+            <div class="icon-circle icon-orange"><i class="fa-solid fa-bolt"></i></div>
+            <h3>1. 光能供电</h3>
+            <p>柔性光能技术植入镜腿。</p>
+            <p style="font-size: 16px; margin-top: 10px; color: var(--primary);"><strong>降低维护成本</strong><br>解决充电焦虑</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle icon-grey"><i class="fa-regular fa-bell-slash"></i></div>
+            <h3>2. 无声提醒</h3>
+            <p>轻量震动提示坐姿与用眼。</p>
+            <p style="font-size: 16px; margin-top: 10px; color: var(--text-main);"><strong>不打扰课堂</strong><br>无社交尴尬</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle icon-green"><i class="fa-solid fa-brain"></i></div>
+            <h3>3. 端侧 AI</h3>
+            <p>本地识别伏案、阅读、户外。</p>
+            <p style="font-size: 16px; margin-top: 10px; color: var(--secondary);"><strong>理解而非监控</strong><br>精准行为反馈</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: The App Bento UI -->
+<div class="slide-container">
+    <div class="grid-2">
+        <div style="display: flex; justify-content: center;">
+            <!-- Recreating the User's Real UI from React Code -->
+            <div class="phone-mockup" style="background: linear-gradient(180deg, #FFF5E6 0%, #FAF9F6 30%);">
+                <div class="app-header">
+                    <i class="fa-solid fa-video" style="color: #ccc;"></i>
+                    <i class="fa-solid fa-bolt" style="font-size: 20px;"></i>
+                </div>
+                
+                <div class="app-sun-glow">
+                    <div style="font-size: 72px; font-weight: 800; line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.1);">45</div>
+                    <div style="font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: -40px;">光合分钟</div>
+                </div>
+                
+                <div style="position: absolute; top: 35%; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.8); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #333; width: max-content; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    😊 目澈正在深呼吸
+                </div>
+                
+                <div class="app-bento-grid">
+                    <!-- Posture Card -->
+                    <div class="app-bento-card" style="grid-row: span 2; justify-content: space-between; background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(224,242,247,0.4)); height: 255px;">
+                        <div style="display: flex; align-items: center; gap: 8px; color: #666; font-size: 12px; font-weight: 700;">
+                            <i class="fa-solid fa-wave-square"></i> 姿态健康
+                        </div>
+                        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                            <svg width="40" height="100" viewBox="0 0 40 100">
+                                <path d="M20,10 Q25,50 20,90" stroke="#A7D7C5" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                <circle cx="20" cy="10" r="4" fill="#A7D7C5"/>
+                                <circle cx="21" cy="30" r="4" fill="#A7D7C5"/>
+                                <circle cx="23" cy="50" r="4" fill="#A7D7C5"/>
+                                <circle cx="21" cy="70" r="4" fill="#A7D7C5"/>
+                                <circle cx="20" cy="90" r="4" fill="#A7D7C5"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div style="font-size: 20px; font-weight: 800; color: #333;">状态极佳</div>
+                            <div style="font-size: 12px; color: #999;">脊柱保持挺拔</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Energy Card -->
+                    <div class="app-bento-card" style="height: 120px; justify-content: space-between;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div style="width: 32px; height: 32px; background: #E8F5E9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #6AB04C;">
+                                <i class="fa-solid fa-leaf" style="font-size: 14px;"></i>
+                            </div>
+                            <span style="font-size: 12px; color: #999; font-weight: 700;">元气值</span>
+                        </div>
+                        <div>
+                            <div style="font-size: 18px; font-weight: 800; color: #333;">可守护 3 天</div>
+                            <div style="font-size: 11px; color: #999; margin-top: 2px;">剩余续航</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Badges Card -->
+                    <div class="app-bento-card" style="height: 120px; justify-content: space-between;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div style="width: 32px; height: 32px; background: #FFF8E1; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #F1C40F;">
+                                <i class="fa-solid fa-medal" style="font-size: 14px;"></i>
+                            </div>
+                            <span style="font-size: 12px; color: #999; font-weight: 700;">勋章墙</span>
+                        </div>
+                        <div style="display: flex; margin-left: 5px; margin-top: auto; margin-bottom: 5px;">
+                            <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #E0C3FC, #8EC5FC); border: 2px solid #fff; z-index: 2;"></div>
+                            <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #FFD89C, #FFB07C); border: 2px solid #fff; margin-left: -12px; z-index: 1;"></div>
+                        </div>
+                        <div style="font-size: 11px; color: #999;">新获得 2 枚</div>
+                    </div>
+                </div>
+                
+                <div class="app-bottom-nav">
+                    <div class="app-nav-item active"><i class="fa-solid fa-house"></i></div>
+                    <div class="app-nav-item"><i class="fa-solid fa-book"></i></div>
+                    <div class="app-nav-item"><i class="fa-regular fa-user"></i></div>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <span class="subtitle">软件体验</span>
+            <h2>不是监控，是理解</h2>
+            <div class="card">
+                <p>我们提供的不是冰冷的数据，而是<strong>“可理解的视力日记”</strong>。</p>
+                <ul style="margin-top: 20px; list-style: none; padding: 0;">
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-circle-check" style="color: var(--secondary); margin-right: 10px;"></i> 阳光存折 (光照激励)</li>
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-circle-check" style="color: var(--secondary); margin-right: 10px;"></i> 坐姿养成 (正向反馈)</li>
+                    <li><i class="fa-solid fa-circle-check" style="color: var(--secondary); margin-right: 10px;"></i> 亲子默契 (减少摩擦)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Timing -->
+<div class="slide-container center-layout">
+    <span class="subtitle">时机</span>
+    <h2>为什么是现在？</h2>
+    <div class="grid-3" style="margin-top: 40px; width: 100%;">
+        <div class="card" style="text-align: left;">
+            <div class="highlight-pill" style="background: #E3F2FD; color: #2980B9;">01. 政策</div>
+            <h3>公共健康议题</h3>
+            <p style="font-size: 18px;">近视防控成为学校和家庭的“必答题”。</p>
+        </div>
+        <div class="card" style="text-align: left;">
+            <div class="highlight-pill" style="background: #E8F5E9; color: #27AE60;">02. 技术</div>
+            <h3>工程能力成熟</h3>
+            <p style="font-size: 18px;">低功耗 AI + 柔性光能 + 穿戴工艺的完美汇合。</p>
+        </div>
+        <div class="card" style="text-align: left;">
+            <div class="highlight-pill" style="background: #FFF3E0; color: #D35400;">03. 心理</div>
+            <h3>安心型消费</h3>
+            <p style="font-size: 18px;">家庭对几百元级“健康预防”支出的意愿显著上升。</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Positioning -->
+<div class="slide-container">
+    <span class="subtitle">市场策略</span>
+    <h2>切入：行为管理层</h2>
+    <p>我们不替代医疗，而是填补日常空白。</p>
+    <div style="width: 80%; margin: 40px auto; display: flex; flex-direction: column; gap: 10px;">
+        <div style="background: #eee; padding: 20px; border-radius: 15px; text-align: center; color: #999;">
+            <strong>医疗矫正层</strong> (OK镜 / 阿托品) - 医院场景
+        </div>
+        <div style="background: linear-gradient(90deg, #FFC078, #FF9F43); padding: 30px; border-radius: 20px; text-align: center; color: white; box-shadow: 0 10px 30px rgba(255,159,67,0.3); transform: scale(1.05);">
+            <i class="fa-solid fa-star" style="margin-right: 10px;"></i>
+            <strong>目澈：行为管理层</strong>
+            <i class="fa-solid fa-star" style="margin-left: 10px;"></i>
+            <div style="font-size: 16px; margin-top: 5px; opacity: 0.9;">日常佩戴 · 24h 干预 · 习惯养成</div>
+        </div>
+        <div style="background: #eee; padding: 20px; border-radius: 15px; text-align: center; color: #999;">
+            <strong>基础视光层</strong> (普通眼镜) - 仅矫正视力
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Business Model -->
+<div class="slide-container">
+    <span class="subtitle">商业模式</span>
+    <h2>三步走战略</h2>
+    <div class="grid-3" style="margin-top: 30px;">
+        <div class="card" style="border-top: 5px solid var(--primary);">
+            <div style="font-size: 60px; font-weight: 800; color: #eee; position: absolute; top: 10px; right: 20px;">01</div>
+            <h3>硬件销售</h3>
+            <p class="highlight-pill">Entry</p>
+            <p><strong>低门槛定价</strong></p>
+            <p>降低决策成本，快速建立用户规模。</p>
+        </div>
+        <div class="card" style="border-top: 5px solid var(--secondary);">
+            <div style="font-size: 60px; font-weight: 800; color: #eee; position: absolute; top: 10px; right: 20px;">02</div>
+            <h3>耗材复购</h3>
+            <p class="highlight-pill" style="background: #E8F5E9; color: var(--secondary);">Retention</p>
+            <p><strong>换壳经济</strong></p>
+            <p>镜框款式、联名设计，提升复购频率。</p>
+        </div>
+        <div class="card" style="border-top: 5px solid var(--text-main);">
+            <div style="font-size: 60px; font-weight: 800; color: #eee; position: absolute; top: 10px; right: 20px;">03</div>
+            <h3>数据服务</h3>
+            <p class="highlight-pill" style="background: #F0F0F0; color: #666;">Ecosystem</p>
+            <p><strong>服务协同</strong></p>
+            <p>与视光机构、保险合作，沉淀眼健康数据资产。</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Channels -->
+<div class="slide-container">
+    <span class="subtitle">渠道策略</span>
+    <h2>双线推进</h2>
+    <div class="grid-2">
+        <div class="card" style="background: #FFF3E0; border: none;">
+            <div class="icon-circle" style="background: white; color: var(--primary);"><i class="fa-solid fa-mobile-screen"></i></div>
+            <h3>线上：内容驱动</h3>
+            <p>短视频、种草平台。</p>
+            <p style="margin-top: 20px; font-size: 16px;">教育硬件已验证的爆发路径。<br>主打“不充电黑科技”。</p>
+        </div>
+        <div class="card" style="background: #F1F2F6; border: none;">
+            <div class="icon-circle" style="background: white; color: var(--text-main);"><i class="fa-solid fa-store"></i></div>
+            <h3>线下：视光补充</h3>
+            <p>眼镜店 & 视光中心。</p>
+            <p style="margin-top: 20px; font-size: 16px;">作为高价光学方案的<br><strong>“自然补充选择”</strong>。</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Team and Finance -->
+<div class="slide-container">
+    <div class="grid-2">
+        <div>
+            <span class="subtitle">团队基因</span>
+            <h2 style="margin-bottom: 10px;">多年战友</h2>
+            <p style="margin-bottom: 20px; font-size: 20px;">团队最小MVP</p>
+            
+            <div class="card" style="margin-top: 20px; padding: 40px 30px;">
+                <!-- 成员：天祥 -->
+                <div style="display: flex; align-items: flex-start; margin-bottom: 35px;">
+                    <div style="width: 80px; font-weight: 800; font-size: 20px; color: var(--text-main); flex-shrink: 0; padding-top: 2px;">天祥</div>
+                    <div>
+                        <div style="font-weight: 700; font-size: 18px; color: var(--text-main); margin-bottom: 6px;">好未来硬件GTM负责人</div>
+                        <div style="color: var(--text-sub); font-size: 16px; line-height: 1.5;">产品go-to-market 操盘<br>（负责营销与销售）</div>
+                    </div>
+                </div>
+                
+                <!-- 成员：空缺 (硬件) -->
+                <div style="display: flex; align-items: flex-start; margin-bottom: 35px;">
+                    <div style="width: 80px; font-weight: 800; font-size: 20px; color: var(--text-main); flex-shrink: 0; padding-top: 2px;">空缺</div>
+                    <div>
+                        <div style="font-weight: 700; font-size: 18px; color: var(--text-main); margin-bottom: 6px;">toC硬件负责人</div>
+                        <div style="color: var(--text-sub); font-size: 16px; line-height: 1.5;">负责产品设计/供应链</div>
+                    </div>
+                </div>
+                
+                <!-- 成员：空缺 (医疗) -->
+                <div style="display: flex; align-items: flex-start;">
+                    <div style="width: 80px; font-weight: 800; font-size: 20px; color: var(--text-main); flex-shrink: 0; padding-top: 2px;">空缺</div>
+                    <div>
+                        <div style="font-weight: 700; font-size: 18px; color: var(--text-main); margin-bottom: 6px;">视光顾问资源</div>
+                        <div style="color: var(--text-sub); font-size: 16px; line-height: 1.5;">专业医疗背书</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="subtitle">融资计划</span>
+            <h2>天使轮</h2>
+            <p style="margin-bottom: 30px;">主要用于工程验证与首批量产</p>
+            <div class="card" style="background: var(--primary); color: white;">
+                <h3 style="color: white; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 15px; margin-bottom: 15px;">资金用途</h3>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>研发验证</span>
+                    <span style="font-weight: 700;">40%</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px; margin-bottom: 20px;"><div style="width: 40%; height: 100%; background: white; border-radius: 3px;"></div></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>供应链准备</span>
+                    <span style="font-weight: 700;">30%</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px; margin-bottom: 20px;"><div style="width: 30%; height: 100%; background: white; border-radius: 3px;"></div></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>市场启动</span>
+                    <span style="font-weight: 700;">30%</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px;"><div style="width: 30%; height: 100%; background: white; border-radius: 3px;"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: End -->
+<div class="slide-container center-layout" style="background: var(--text-main); color: white;">
+    <div class="blob blob-orange" style="opacity: 0.2;"></div>
+    <div style="z-index: 1;">
+        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;">
+            <i class="fa-solid fa-quote-left" style="font-size: 32px;"></i>
+        </div>
+        <h2 style="font-size: 56px; line-height: 1.2; max-width: 900px; margin: 0 auto 40px auto;">
+            目澈不是一副更贵的眼镜，<br>
+            <span style="color: var(--primary);">而是建立青少年护眼的<br>日常入口。</span>
+        </h2>
+        <p style="color: #bbb;">既是硬件生意，也是长期健康数据平台的起点。</p>
+        
+        <div style="margin-top: 60px;">
+            <div style="font-size: 24px; font-weight: 700; margin-bottom: 25px;">
+                期待交流
+            </div>
+            <!-- Contact Info Capsule -->
+            <div style="display: inline-flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.05); padding: 12px 30px 12px 15px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 44px; height: 44px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; box-shadow: 0 4px 10px rgba(255,159,67,0.3);">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <span style="font-size: 22px; font-weight: 700; color: white;">天祥</span>
+                </div>
+                <div style="width: 2px; height: 24px; background: rgba(255,255,255,0.2);"></div>
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 22px; font-family: 'Nunito', monospace; font-weight: 600; color: #eee; letter-spacing: 1px;">
+                    <i class="fa-solid fa-phone" style="color: var(--primary); font-size: 18px;"></i>
+                    18519113901
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
